@@ -9,7 +9,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 // import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.pagefactory.ByChained;
 import org.openqa.selenium.support.ui.Select;
+
+import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
@@ -40,9 +43,11 @@ public class TestBooking {
 
         driver.findElement(By.id("checkin")).sendKeys("2019-09-18");
         driver.findElement(By.id("checkout")).sendKeys("2019-09-21");
-        driver.findElement(By.xpath("//div[@id='form']/div[@class='row']//input[@value=' Save ']")).click();
+        // driver.findElement(By.xpath("//div[@id='form']/div[@class='row']//input[@value=' Save ']")).click();
+        driver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Check-out'])[1]/following::input[6]")).click();
+        // driver.manage().timeouts().implicitlyWait(7, TimeUnit.SECONDS);
         try {
-            Thread.sleep(7000);
+            Thread.sleep(10000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -52,12 +57,9 @@ public class TestBooking {
     @Test
     public void testDeleteBooking() {
         driver.get("http://hotel-test.equalexperts.io/");
-        driver.findElement(By.xpath("//div[@id='bookings']/div[2]//input[@value='Delete']")).click();
-        try {
-            Thread.sleep(7000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        driver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Check-out'])[1]/following::input[1]")).click();
+        driver.manage().timeouts().implicitlyWait(7, TimeUnit.SECONDS);
+
     }
 
 
